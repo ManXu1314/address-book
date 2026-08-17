@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="一个简洁、可靠的在线通讯录">
+  <title>拾光通讯录</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Source+Serif+4:wght@600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="拾光通讯录首页"><span class="brand-mark">拾</span><span>拾光通讯录</span></a>
+    <button class="primary-button" id="addButton" type="button"><span aria-hidden="true">＋</span> 新建联系人</button>
+  </header>
+
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">ADDRESS BOOK</p>
+        <h1>每一段联系，<br>都值得好好保存。</h1>
+      </div>
+      <p class="intro-copy">集中管理重要联系人，快速查找、更新与记录彼此之间的故事。</p>
+    </section>
+
+    <section class="workspace" aria-label="联系人管理">
+      <div class="toolbar">
+        <div>
+          <h2>联系人</h2>
+          <p><span id="contactCount">0</span> 位联系人</p>
+        </div>
+        <label class="search"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="搜索姓名、电话、邮箱或公司" autocomplete="off"></label>
+      </div>
+      <div id="contactGrid" class="contact-grid" aria-live="polite"></div>
+      <div id="emptyState" class="empty-state" hidden>
+        <div class="empty-icon">＋</div>
+        <h3>通讯录还是空的</h3>
+        <p>添加第一位联系人，从这里开始整理你的联系网络。</p>
+        <button class="text-button" type="button" data-add>添加联系人</button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="contactDialog">
+    <form id="contactForm" method="dialog">
+      <div class="dialog-head">
+        <div><p class="eyebrow">CONTACT</p><h2 id="dialogTitle">新建联系人</h2></div>
+        <button class="icon-button" type="button" id="closeDialog" aria-label="关闭">×</button>
+      </div>
+      <input id="contactId" type="hidden">
+      <div class="form-grid">
+        <label><span>姓名 *</span><input id="name" name="name" maxlength="100" required></label>
+        <label><span>电话 *</span><input id="phone" name="phone" type="tel" maxlength="40" required></label>
+        <label><span>邮箱</span><input id="email" name="email" type="email" maxlength="160"></label>
+        <label><span>公司 / 组织</span><input id="company" name="company" maxlength="120"></label>
+        <label class="wide"><span>备注</span><textarea id="notes" name="notes" rows="4"></textarea></label>
+      </div>
+      <p class="form-error" id="formError" role="alert"></p>
+      <div class="dialog-actions"><button class="secondary-button" type="button" id="cancelDialog">取消</button><button class="primary-button" type="submit">保存联系人</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="deleteDialog" class="confirm-dialog">
+    <div><h2>删除联系人？</h2><p>这条联系人记录将被永久删除。</p><div class="dialog-actions"><button class="secondary-button" id="cancelDelete" type="button">取消</button><button class="danger-button" id="confirmDelete" type="button">确认删除</button></div></div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

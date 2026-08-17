@@ -1,0 +1,21 @@
+databases:
+  - name: address-book-db
+    plan: free
+    databaseName: address_book
+    user: address_book
+
+services:
+  - type: web
+    name: address-book-app
+    runtime: node
+    plan: free
+    buildCommand: corepack enable && pnpm install --frozen-lockfile
+    startCommand: pnpm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: address-book-db
+          property: connectionString
