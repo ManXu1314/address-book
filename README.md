@@ -7,7 +7,7 @@
 - 前端：HTML、CSS、JavaScript
 - 后端：Node.js、Express
 - 数据库：PostgreSQL
-- 部署：Render Blueprint
+- 部署：Vercel + Neon PostgreSQL
 
 ## 本地运行
 
@@ -18,6 +18,11 @@
 
 应用启动时会自动创建 `contacts` 表。
 
-## 部署到 Render
+## 部署到 Vercel
 
-仓库内的 `render.yaml` 会同时创建 Web Service 和 PostgreSQL 数据库，并自动把数据库连接地址注入应用。登录 Render 后选择 **New > Blueprint**，连接本仓库并应用配置即可。
+1. 在 Neon 创建 PostgreSQL 项目，并取得连接字符串。
+2. 在 Vercel 导入本 GitHub 仓库。
+3. 添加名为 `DATABASE_URL` 的环境变量，值为 Neon 连接字符串。
+4. 部署完成后，Vercel 会提供公开的 HTTPS 地址。
+
+根目录的 `index.js` 是 Vercel Express 函数入口，`public` 中的前端资源由 Vercel CDN 提供。
